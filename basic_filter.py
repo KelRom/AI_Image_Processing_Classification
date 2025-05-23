@@ -1,6 +1,7 @@
 from PIL import Image, ImageFilter
 import matplotlib.pyplot as plt
 
+
 def apply_blur_filter(image_path):
     try:
         img = Image.open(image_path)
@@ -14,6 +15,7 @@ def apply_blur_filter(image_path):
 
     except Exception as e:
         print(f"Error processing image: {e}")
+
 
 if __name__ == "__main__":
     image_path = "basic_cat.jpg"  # Replace with the path to your image file
