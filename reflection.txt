@@ -1,0 +1,101 @@
+Part 1
+I chose to do two images of my dogs. I do have some experience with Python. A lot of what I read made sense based on what ChatGPT said. The parts I was confused about involved the TensorFlow module and the functions used from it. For example, the img.load_img(path, target_size=(224,224)) — I did assume this was going to load an image, but for some reason, I thought the target size was the size the model would use to look into the picture, not to resize the image to what was in the tuple.
+
+The preprocess_input(img_array) was another function I didn’t know well, but after reading what ChatGPT said, it made sense. It takes the image array that was made and changes it to match the format the model expects.
+
+The last one I was confused about was the np.expand_dims(img_array, axis=0). After reading it from ChatGPT, I was still confused and then went on to read the documentation. I was still confused after this. I think for this one I will have to experiment with it so that I can understand what it actually does.
+
+For My_Beautiful_Luna.jpg, the top three predictions from the AI the first time were:
+1: American_Staffordshire_terrier with a confidence score of 0.38
+2: Staffordshire_bullterrier with a confidence score of 0.22
+3: French_bulldog with a confidence score of 0.05
+
+For the second time, there was no difference.
+
+For My_Beautiful_Zahara.jpg, the predictions were more confident with the top three being:
+1: Doberman with a confidence score of 0.72
+2: miniature_pinscher with a confidence score of 0.12
+3: black-and-tan_coonhound with a confidence score of 0.05
+
+The second time was also the same. I was very surprised at the confidence level the AI had. I began to wonder why the first dog had a lower confidence level, and I came up with one reason being that she was wearing an outfit. So, I uploaded another image to test my hypothesis and these were the results:
+
+My_Beautiful_Luna2.jpg:
+1: American_Staffordshire_terrier with a confidence score of 0.44
+2: Staffordshire_bullterrier with a confidence score of 0.36
+3: Boston_bull with a confidence score of 0.03
+
+This was fascinating. The top two stayed the same, but the confidence scores went up for both, with the second increasing the most. The last option, however, changed to a different breed with a lower confidence score.
+
+Analyzing the heat map for each image, a similar pattern was noted: the AI focused on the head of each dog. For the first image, My_Beautiful_Luna, it looks like the AI pulled in a lot of information from the surrounding area such as the carpet and some of the clothing. This could be because the image is smaller or her head is offset to one side. The rest of the images are very identical in their heatmaps where the face is the star of the show.
+
+Part 2
+Results for My_Beautiful_Luna:
+
+My_Beautiful_Luna_occluded_black.jpg
+Top-3 Predictions after black occlusion:
+1: television (0.11)
+2: laptop (0.07)
+3: jean (0.07)
+
+My_Beautiful_Luna_occluded_blur.jpg
+Top-3 Predictions after blur occlusion:
+1: jean (0.07)
+2: horizontal_bar (0.03)
+3: miniature_poodle (0.02)
+
+My_Beautiful_Luna_occluded_pixelate.jpg
+Top-3 Predictions after pixelate occlusion:
+1: jean (0.12)
+2: sock (0.11)
+3: swing (0.03)
+
+Wow, just wow. This was a very fascinating result. The image classifier was not right on any of these. In fact, there was only one animal ever listed; the rest seem to be random guesses. It is hard to say which occlusion had the greatest impact since they all were not even close, but if I were to choose, it would be the blur since there was not one guess above 0.10.
+
+Results for My_Beautiful_Zahara:
+
+My_Beautiful_Zahara_occluded_black.jpg
+Top-3 Predictions after black occlusion:
+1: miniature_pinscher (0.15)
+2: Rottweiler (0.14)
+3: Doberman (0.12)
+
+My_Beautiful_Zahara_occluded_blur.jpg
+Top-3 Predictions after blur occlusion:
+1: Doberman (0.46)
+2: miniature_pinscher (0.18)
+3: Rottweiler (0.15)
+
+My_Beautiful_Zahara_occluded_pixelate.jpg
+Top-3 Predictions after pixelate occlusion:
+1: Rottweiler (0.14)
+2: Airedale (0.11)
+3: miniature_pinscher (0.07)
+
+Examining these results, adding occlusions had a significant impact on the confidence and the answer it gave. On the first round without occlusion, there was high confidence it was the correct dog, but now none of the occlusion predictions are above 0.50. The one that had the biggest impact was the pixelate occlusion because it didn’t provide the right breed and gave another new breed.
+
+Results for My_Beautiful_Luna2:
+
+Top-3 Predictions after black occlusion:
+1: West_Highland_white_terrier (0.29)
+2: pug (0.07)
+3: wire-haired_fox_terrier (0.04)
+
+My_Beautiful_Luna2_occluded_blur.jpg
+Top-3 Predictions after blur occlusion:
+1: toy_terrier (0.13)
+2: French_bulldog (0.11)
+3: beagle (0.10)
+
+My_Beautiful_Luna2_occluded_pixelate.jpg
+Top-3 Predictions after pixelate occlusion:
+1: West_Highland_white_terrier (0.33)
+2: pug (0.05)
+3: cairn (0.02)
+
+This was better — I use that term loosely — than the first My_Beautiful_Luna. There were at least animals and dogs it guessed, unlike the first image. The one that had the biggest impact here was the blur based on the confidence scores.
+
+Part 3
+Every line of code in the basic_filter.py is pretty easy to understand. The only thing I didn't know, based on educated guessing, was what plt.axis('off') did. After reading what it is supposed to do, it makes sense.
+
+There were two filters I decided to make. One was a TV static filter to make the image look like an old TV or as if it was losing signal. The second filter I made was a spotlight on My_Beautiful_Luna2 and I gave her a microphone since she loves to sing with me. This took me about 30 minutes to get how I wanted. Using ChatGPT to help with code is nice, but you need to be extremely specific about what you want and in what order for it to be close. Other than the filters issues getting it how I wanted, ChatGPT was pretty useful for this assignment.
+
